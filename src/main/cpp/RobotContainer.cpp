@@ -66,7 +66,11 @@ RobotContainer::RobotContainer() : con{0}
         }
         // ---------------------------------------
 
-      // old code
+        arm.Intake((con.GetR2Axis() + 1) * -8);
+      },
+       {&arm}));
+
+             // old code
   //        Toggleable armState(false);
   // arm.SetDefaultCommand(frc2::RunCommand(
   //     [this, &armState]
@@ -75,10 +79,7 @@ RobotContainer::RobotContainer() : con{0}
   //       arm.Intake((con.GetR2Axis() + 1)  * -8);
   //     },
   //     {&arm}));
-
-        arm.Intake((con.GetR2Axis() + 1) * -8);
-      },
-       {&arm}));
+  
 }
 
 void RobotContainer::ConfigureButtonBindings()
