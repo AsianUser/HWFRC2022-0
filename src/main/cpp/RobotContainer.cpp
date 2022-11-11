@@ -67,7 +67,14 @@ RobotContainer::RobotContainer() : con{0}
         // ---------------------------------------
 
       // old code
-         // arm.Lift((con.GetR1Button()) ? 1.2 : -0.3);
+  //     Toggleable armState(false);
+  //     arm.SetDefaultCommand(frc2::RunCommand(
+  //     [this, &armState]
+  //     {
+  //       arm.Lift((con.GetR1Button()) ? 3 : -1); // basically if-else
+  //       arm.Intake((con.GetR2Axis() + 1) * -8);
+  //     },
+  //     {&arm}));
 
         arm.Intake((con.GetR2Axis() + 1) * -8);
       },
