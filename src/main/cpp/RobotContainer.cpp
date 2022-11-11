@@ -37,7 +37,7 @@ RobotContainer::RobotContainer() : con{0}
         frc::SmartDashboard::PutString("DB/String 0", std::to_string(con.GetLeftY()));
       },
       {&m_drive}));
-  // untested vars -------------------------
+   // untested vars -------------------------
   Button startedPressing;
   Button stoppedPressing;
   double pressedTime = 0;
@@ -67,18 +67,18 @@ RobotContainer::RobotContainer() : con{0}
         // ---------------------------------------
 
       // old code
-  //     Toggleable armState(false);
-  //     arm.SetDefaultCommand(frc2::RunCommand(
+  //        Toggleable armState(false);
+  // arm.SetDefaultCommand(frc2::RunCommand(
   //     [this, &armState]
   //     {
-  //       arm.Lift((con.GetR1Button()) ? 3 : -1); // basically if-else
-  //       arm.Intake((con.GetR2Axis() + 1) * -8);
+  //       arm.Lift((con.GetR1Button()) ? 3 : -1);
+  //       arm.Intake((con.GetR2Axis() + 1)  * -8);
   //     },
   //     {&arm}));
 
         arm.Intake((con.GetR2Axis() + 1) * -8);
       },
-      {&arm}));
+       {&arm}));
 }
 
 void RobotContainer::ConfigureButtonBindings()
