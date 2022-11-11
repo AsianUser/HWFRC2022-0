@@ -44,7 +44,7 @@ RobotContainer::RobotContainer() : con{0}
   arm.SetDefaultCommand(frc2::RunCommand(
       [this, &startedPressing, &stoppedPressing, &pressedTime, &stoppedTime]
       {
-        // new code __________________________________ untested
+        // new code __________________________________ untested code
         if (startedPressing(con.GetR1Button()))
         {
           pressedTime = frc::GetTime().value();
