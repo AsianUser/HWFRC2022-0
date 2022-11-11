@@ -37,14 +37,16 @@ RobotContainer::RobotContainer() : con{0}
         frc::SmartDashboard::PutString("DB/String 0", std::to_string(con.GetLeftY()));
       },
       {&m_drive}));
+  // untested vars -------------------------
   Button startedPressing;
   Button stoppedPressing;
   double pressedTime = 0;
   double stoppedTime = 0;
+  // ----------------------------
   arm.SetDefaultCommand(frc2::RunCommand(
       [this, &startedPressing, &stoppedPressing, &pressedTime, &stoppedTime]
       {
-        // new code __________________________________ untested code
+        // new code ------------------------ untested code
         if (startedPressing(con.GetR1Button()))
         {
           pressedTime = frc::GetTime().value();
@@ -62,10 +64,10 @@ RobotContainer::RobotContainer() : con{0}
         {
           arm.Lift((frc::GetTime().value() < stoppedTime + 0.5) ? -1 : -0.3); // basically if-else
         }
-        // __________________________________________________
+        // ---------------------------------------
 
-        // old code
-          // arm.Lift((con.GetR1Button()) ? 1.2 : -0.3);
+      // old code
+         // arm.Lift((con.GetR1Button()) ? 1.2 : -0.3);
 
         arm.Intake((con.GetR2Axis() + 1) * -8);
       },
