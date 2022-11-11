@@ -13,11 +13,14 @@
 #include <frc2/command/SequentialCommandGroup.h>
 #include <frc2/command/WaitCommand.h>
 #include <frc2/command/WaitUntilCommand.h>
+#include <frc/motorcontrol/PWMSparkMax.h>
 
 #include <frc/PS4Controller.h>
 
 #include "Constants.h"
 #include "subsystems/DriveSubsystem.h"
+#include "subsystems/ArmSubsystem.h"
+#include "util/Button.h" // was toggleable
 
 namespace ac = AutoConstants;
 
@@ -49,6 +52,7 @@ class RobotContainer {
 
   // The robot's subsystems
   DriveSubsystem m_drive;
+  ArmSubsystem arm;
 
   // The chooser for the autonomous routines
 

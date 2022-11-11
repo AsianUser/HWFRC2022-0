@@ -9,6 +9,7 @@
 #include <units/angle.h>
 #include <cstdlib>
 #include <math.h>
+#include "rev/CANSparkMax.h"
 
 double curve_function(double x, double scale)
 {
@@ -16,7 +17,7 @@ double curve_function(double x, double scale)
 }
 double curve_function2(double x, double scale)
 {
-  return (scale != 0 && x != 1) ? powf(2.178,((std::abs(x*127) -127) * scale / 1000.0)) * x : x; // a ternerary to improve performance
+  return (scale != 0 && x != 1) ? powf(2.178, ((std::abs(x * 127) - 127) * scale / 1000.0)) * x : x; // a ternerary to improve performance
 }
 
 RobotContainer::RobotContainer() : con{0}
@@ -36,6 +37,39 @@ RobotContainer::RobotContainer() : con{0}
         frc::SmartDashboard::PutString("DB/String 0", std::to_string(con.GetLeftY()));
       },
       {&m_drive}));
+  Button startedPressing;
+  Button stoppedPressing;
+  double pressedTime = 0;
+  double stoppedTime = 0;
+  arm.SetDefaultCommand(frc2::RunCommand(
+      [this, &startedPressing, &stoppedPressing, &pressedTime, &stoppedTime]
+      {
+        // new code __________________________________ untested
+        if (startedPressing(con.GetR1Button()))
+        {
+          pressedTime = frc::GetTime().value();
+        }
+        if (stoppedPressing(!con.GetR1Button()))
+        {
+          stoppedTime = frc::GetTime().value();
+        }
+
+        if (con.GetR1Button())
+        {
+          arm.Lift((frc::GetTime().value() < pressedTime + 0.5) ? 3 : 1.2); // basically if-else
+        }
+        else
+        {
+          arm.Lift((frc::GetTime().value() < stoppedTime + 0.5) ? -1 : -0.3); // basically if-else
+        }
+        // __________________________________________________
+
+        // old code
+          // arm.Lift((con.GetR1Button()) ? 1.2 : -0.3);
+
+        arm.Intake((con.GetR2Axis() + 1) * -8);
+      },
+      {&arm}));
 }
 
 void RobotContainer::ConfigureButtonBindings()
