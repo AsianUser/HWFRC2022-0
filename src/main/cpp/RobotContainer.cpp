@@ -60,15 +60,24 @@ RobotContainer::RobotContainer() : con{0}
         if (con.GetR1Button())
         {
           // printf(frc::GetTime().value()) ;
-          arm.Lift((frc::GetTime().value() < pressedTime + 1.0) ? 10.0 : 6); // basically if-else
+          arm.Lift(3); // basically if-else
         }
-        else
+        else if (con.GetR2Button())
         {
-          arm.Lift((frc::GetTime().value() < stoppedTime + 0.5) ? -6.0 : -3); // basically if-else
+          arm.Lift(-3); // basically if-else
+        }
+        else 
+        {
+          arm.Lift(0) ;
         }
         // ---------------------------------------
 
-        arm.Intake(((con.GetR2Axis())*8)); // was  +1  ;  *-8
+        if (con.GetL2Button())
+          arm.Intake(10); // intake
+        else if (con.GetL1Button())
+          arm.Intake(-6) ;
+        else
+          arm.Intake(0) ;
       },
        {&arm}));
 
