@@ -27,7 +27,7 @@ RobotContainer::RobotContainer() : con{0}
   // Configure the button bindings
   ConfigureButtonBindings();
 
-  printf("something");
+  // printf("something");
 
   // Set up default drive command
   m_drive.SetDefaultCommand(frc2::RunCommand(
@@ -75,7 +75,7 @@ RobotContainer::RobotContainer() : con{0}
         if (con.GetL2Button())
           arm.Intake(10); // intake
         else if (con.GetL1Button())
-          arm.Intake(-10) ;
+          arm.Intake(-12) ;
         else
           arm.Intake(0) ;
       },
