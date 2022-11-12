@@ -20,6 +20,8 @@ double curve_function2(double x, double scale)
   return (scale != 0 && x != 1) ? powf(2.178, ((std::abs(x * 127) - 127) * scale / 1000.0)) * x : x; // a ternerary to improve performance
 }
 
+// RobotContainer::RobotContainer() : 
+
 RobotContainer::RobotContainer() : con{0}
 {
   // Initialize all of your commands and subsystems here
@@ -27,7 +29,7 @@ RobotContainer::RobotContainer() : con{0}
   // Configure the button bindings
   ConfigureButtonBindings();
 
-  printf("something");
+  //printf("something");
 
   // Set up default drive command
   m_drive.SetDefaultCommand(frc2::RunCommand(
@@ -75,7 +77,7 @@ RobotContainer::RobotContainer() : con{0}
         if (con.GetL2Button())
           arm.Intake(10); // intake
         else if (con.GetL1Button())
-          arm.Intake(-10) ;
+          arm.Intake(-12) ; // out
         else
           arm.Intake(0) ;
       },
@@ -105,5 +107,6 @@ void RobotContainer::DisablePIDSubsystems()
 frc2::Command *RobotContainer::GetAutonomousCommand()
 {
   // Runs the chosen command in autonomous
-  return new frc2::InstantCommand([] {});
+  return &m_autonomousCommand ;
+  // return new frc2::InstantCommand([] {});
 }

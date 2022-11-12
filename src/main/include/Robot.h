@@ -9,6 +9,11 @@
 
 #include "RobotContainer.h"
 
+
+#include "Constants.h"
+#include "subsystems/DriveSubsystem.h"
+#include "subsystems/ArmSubsystem.h"
+
 class Robot : public frc::TimedRobot {
  public:
   void RobotInit() override;
