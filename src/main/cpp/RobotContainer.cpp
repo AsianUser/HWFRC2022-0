@@ -33,7 +33,7 @@ RobotContainer::RobotContainer() : con{0}
   m_drive.SetDefaultCommand(frc2::RunCommand(
       [this]
       {
-        m_drive.TankDrive(curve_function2(con.GetLeftY(), 12) * 6.0, curve_function2(con.GetRightY(), 12) * 6.0);
+        m_drive.TankDrive(curve_function2(con.GetRightY(), 12) * 6.0, curve_function2(con.GetLeftY(), 12) * 6.0);
         frc::SmartDashboard::PutString("DB/String 0", std::to_string(con.GetLeftY()));
       },
       {&m_drive}));
@@ -75,7 +75,7 @@ RobotContainer::RobotContainer() : con{0}
         if (con.GetL2Button())
           arm.Intake(10); // intake
         else if (con.GetL1Button())
-          arm.Intake(-6) ;
+          arm.Intake(-10) ;
         else
           arm.Intake(0) ;
       },
