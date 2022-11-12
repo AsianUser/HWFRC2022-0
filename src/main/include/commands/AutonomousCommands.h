@@ -10,6 +10,9 @@ class AutonomousCommand
     
     public:
 
-        explicit AutonomousCommand (ArmSubsystem* arm) ;
+        explicit AutonomousCommand (ArmSubsystem* arm) ; // defining the subsystem
+
+    private:
+        ArmSubsystem* m_arm ; // now member var
     
-    }
+    };

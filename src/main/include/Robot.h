@@ -11,6 +11,9 @@
 
 
 #include "Constants.h"
+
+#include "commands/AutonomousCommands.h"
+
 #include "subsystems/DriveSubsystem.h"
 #include "subsystems/ArmSubsystem.h"
 

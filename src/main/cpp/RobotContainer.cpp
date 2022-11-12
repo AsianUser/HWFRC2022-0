@@ -22,6 +22,11 @@ double curve_function2(double x, double scale)
 
 // RobotContainer::RobotContainer() : 
 
+RobotContainer::RobotContainer() : m_autonomousCommand (&arm)
+{
+  
+}
+
 RobotContainer::RobotContainer() : con{0}
 {
   // Initialize all of your commands and subsystems here
