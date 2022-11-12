@@ -33,7 +33,7 @@ RobotContainer::RobotContainer() : con{0}
   m_drive.SetDefaultCommand(frc2::RunCommand(
       [this]
       {
-        m_drive.TankDrive(curve_function2(con.GetLeftY(), 12) * -12.0, curve_function2(con.GetRightY(), 8) * -12.0);
+        m_drive.TankDrive(curve_function2(con.GetLeftY(), 12) * 6.0, curve_function2(con.GetRightY(), 12) * 6.0);
         frc::SmartDashboard::PutString("DB/String 0", std::to_string(con.GetLeftY()));
       },
       {&m_drive}));
@@ -42,31 +42,33 @@ RobotContainer::RobotContainer() : con{0}
   Button stoppedPressing;
   double pressedTime = 0;
   double stoppedTime = 0;
+  // bool usable = true ;
   // ----------------------------
   arm.SetDefaultCommand(frc2::RunCommand(
       [this, &startedPressing, &stoppedPressing, &pressedTime, &stoppedTime]
       {
         // new code ------------------------ untested code
-        if (startedPressing(con.GetR1Button()))
-        {
-          pressedTime = frc::GetTime().value();
-        }
-        if (stoppedPressing(!con.GetR1Button()))
-        {
-          stoppedTime = frc::GetTime().value();
-        }
+        // if (startedPressing(con.GetR1Button()))
+        // {
+        //   pressedTime = frc::GetTime().value();
+        // }
+        // if (stoppedPressing(!con.GetR1Button()))
+        // {
+        //   stoppedTime = frc::GetTime().value();
+        // }
 
         if (con.GetR1Button())
         {
-          arm.Lift((frc::GetTime().value() < pressedTime + 0.5) ? 3 : 1.2); // basically if-else
+          // printf(frc::GetTime().value()) ;
+          arm.Lift((frc::GetTime().value() < pressedTime + 1.0) ? 10.0 : 6); // basically if-else
         }
         else
         {
-          arm.Lift((frc::GetTime().value() < stoppedTime + 0.5) ? -1 : -0.3); // basically if-else
+          arm.Lift((frc::GetTime().value() < stoppedTime + 0.5) ? -6.0 : -3); // basically if-else
         }
         // ---------------------------------------
 
-        arm.Intake((con.GetR2Axis() + 1) * -8);
+        arm.Intake(((con.GetR2Axis())*8)); // was  +1  ;  *-8
       },
        {&arm}));
 
