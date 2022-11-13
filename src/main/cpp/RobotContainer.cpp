@@ -22,16 +22,7 @@ double curve_function2(double x, double scale)
   return (scale != 0 && x != 1) ? powf(2.178, ((std::abs(x * 127) - 127) * scale / 1000.0)) * x : x; // a ternerary to improve performance
 }
 
-// RobotContainer::RobotContainer() :
-
-// RobotContainer::RobotContainer() : m_autonomousCommand (&arm)
-// {
-//   while (frc::Timer::GetMatchTime() >= 10)
-//     arm.Intake(-12) ;
-//   arm.Intake(0) ;
-// }
-
-RobotContainer::RobotContainer() : con{0}, m_autonomousCommand{&m_drive}
+RobotContainer::RobotContainer() : con{0}, m_autonomousCommand{&m_arm}
 {
   // Initialize all of your commands and subsystems here
 
@@ -49,24 +40,24 @@ RobotContainer::RobotContainer() : con{0}, m_autonomousCommand{&m_drive}
       },
       {&m_drive}));
 
-  arm.SetDefaultCommand(frc2::RunCommand(
+  m_arm.SetDefaultCommand(frc2::RunCommand(
       [this]
       {
         if (con.GetR1Button())
-          arm.Lift(3);
+          m_arm.Lift(3);
         else if (con.GetR2Button())
-          arm.Lift(-3);
+          m_arm.Lift(-3);
         else
-          arm.Lift(0);
+          m_arm.Lift(0);
 
         if (con.GetL2Button())
-          arm.Intake(10); // intake
+          m_arm.Intake(10); // intake
         else if (con.GetL1Button())
-          arm.Intake(-12); // out
+          m_arm.Intake(-12); // out
         else
-          arm.Intake(0);
+          m_arm.Intake(0);
       },
-      {&arm}));
+      {&m_arm}));
 
   // m_autonomousCommand.SetDefaultCommand
 }
@@ -82,5 +73,5 @@ void RobotContainer::DisablePIDSubsystems()
 
 frc2::Command *RobotContainer::GetAutonomousCommand()
 {
-  return m_autonomousCommand;
+  return &m_autonomousCommand;
 }

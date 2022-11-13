@@ -55,9 +55,8 @@ class RobotContainer {
 
   // The robot's subsystems
   DriveSubsystem m_drive;
-  ArmSubsystem arm;
+  ArmSubsystem m_arm;
 
-  AutonomousCommand m_autonomousCommand;
   AutonomousCommand m_autonomousCommand;
 
   // The chooser for the autonomous routines

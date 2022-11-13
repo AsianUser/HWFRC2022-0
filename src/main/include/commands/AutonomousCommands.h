@@ -11,6 +11,8 @@ class AutonomousCommand
 
 public:
     explicit AutonomousCommand(ArmSubsystem *arm); // defining the subsystem
+    void Execute() override;
+    bool IsFinished() override;
 
 private:
     ArmSubsystem *m_arm; // now member var
