@@ -73,7 +73,7 @@ RobotContainer::RobotContainer() : con{0}
         // ---------------------------------------
 
         if (con.GetL2Button())
-          arm.Intake(10); // intake
+          arm.Intake(12); // intake
         else if (con.GetL1Button())
           arm.Intake(-12) ;
         else
