@@ -11,6 +11,8 @@
 #include <math.h>
 #include "rev/CANSparkMax.h"
 
+#include <frc/Timer.h>
+
 double curve_function(double x, double scale)
 {
   return (scale != 0 && x != 100) ? (powf(2.718, -(scale / 10)) + powf(2.718, (abs(x * 127) - 127) / 10) * (1 - powf(2.718, -(scale / 10)))) * x : x; // a ternerary to improve performance
@@ -20,21 +22,23 @@ double curve_function2(double x, double scale)
   return (scale != 0 && x != 1) ? powf(2.178, ((std::abs(x * 127) - 127) * scale / 1000.0)) * x : x; // a ternerary to improve performance
 }
 
-// RobotContainer::RobotContainer() : 
+// RobotContainer::RobotContainer() :
 
-RobotContainer::RobotContainer() : m_autonomousCommand (&arm)
-{
-  
-}
+// RobotContainer::RobotContainer() : m_autonomousCommand (&arm)
+// {
+//   while (frc::Timer::GetMatchTime() >= 10)
+//     arm.Intake(-12) ;
+//   arm.Intake(0) ;
+// }
 
-RobotContainer::RobotContainer() : con{0}
+RobotContainer::RobotContainer() : con{0}, m_autonomousCommand{&m_drive}
 {
   // Initialize all of your commands and subsystems here
 
   // Configure the button bindings
   ConfigureButtonBindings();
 
-  //printf("something");
+  // printf("something");
 
   // Set up default drive command
   m_drive.SetDefaultCommand(frc2::RunCommand(
@@ -44,60 +48,27 @@ RobotContainer::RobotContainer() : con{0}
         frc::SmartDashboard::PutString("DB/String 0", std::to_string(con.GetLeftY()));
       },
       {&m_drive}));
-   // untested vars -------------------------
-  Button startedPressing;
-  Button stoppedPressing;
-  double pressedTime = 0;
-  double stoppedTime = 0;
-  // bool usable = true ;
-  // ----------------------------
-  arm.SetDefaultCommand(frc2::RunCommand(
-      [this, &startedPressing, &stoppedPressing, &pressedTime, &stoppedTime]
-      {
-        // new code ------------------------ untested code
-        // if (startedPressing(con.GetR1Button()))
-        // {
-        //   pressedTime = frc::GetTime().value();
-        // }
-        // if (stoppedPressing(!con.GetR1Button()))
-        // {
-        //   stoppedTime = frc::GetTime().value();
-        // }
 
+  arm.SetDefaultCommand(frc2::RunCommand(
+      [this]
+      {
         if (con.GetR1Button())
-        {
-          // printf(frc::GetTime().value()) ;
-          arm.Lift(3); // basically if-else
-        }
+          arm.Lift(3);
         else if (con.GetR2Button())
-        {
-          arm.Lift(-3); // basically if-else
-        }
-        else 
-        {
-          arm.Lift(0) ;
-        }
-        // ---------------------------------------
+          arm.Lift(-3);
+        else
+          arm.Lift(0);
 
         if (con.GetL2Button())
           arm.Intake(10); // intake
         else if (con.GetL1Button())
-          arm.Intake(-12) ; // out
+          arm.Intake(-12); // out
         else
-          arm.Intake(0) ;
+          arm.Intake(0);
       },
-       {&arm}));
+      {&arm}));
 
-             // old code
-  //        Toggleable armState(false);
-  // arm.SetDefaultCommand(frc2::RunCommand(
-  //     [this, &armState]
-  //     {
-  //       arm.Lift((con.GetR1Button()) ? 3 : -1);
-  //       arm.Intake((con.GetR2Axis() + 1)  * -8);
-  //     },
-  //     {&arm}));
-  
+  // m_autonomousCommand.SetDefaultCommand
 }
 
 void RobotContainer::ConfigureButtonBindings()
@@ -111,7 +82,5 @@ void RobotContainer::DisablePIDSubsystems()
 
 frc2::Command *RobotContainer::GetAutonomousCommand()
 {
-  // Runs the chosen command in autonomous
-  return &m_autonomousCommand ;
-  // return new frc2::InstantCommand([] {});
+  return m_autonomousCommand;
 }

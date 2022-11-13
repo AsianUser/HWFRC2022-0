@@ -6,13 +6,12 @@
 #include "subsystems/ArmSubsystem.h"
 
 class AutonomousCommand
-        :public frc2:: CommandHelper<frc2::CommandBase, AutonomousCommand> {
-    
-    public:
+    : public frc2::CommandHelper<frc2::CommandBase, AutonomousCommand>
+{
 
-        explicit AutonomousCommand (ArmSubsystem* arm) ; // defining the subsystem
+public:
+    explicit AutonomousCommand(ArmSubsystem *arm); // defining the subsystem
 
-    private:
-        ArmSubsystem* m_arm ; // now member var
-    
-    };
+private:
+    ArmSubsystem *m_arm; // now member var
+};
